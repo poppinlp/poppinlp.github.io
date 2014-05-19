@@ -12,6 +12,6 @@ _test_
 
 __test__
 
->> test
+> test
 
 [test](http://poppinlp.github.io)
