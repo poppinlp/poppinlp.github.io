@@ -24,7 +24,7 @@ a:hover {
 }
 .content {
     margin:0 auto;
-    width:820px;
+    width:920px;
     height:220px;
 }
 .record {
@@ -32,13 +32,13 @@ a:hover {
     float:left;
     height:220px;
     width:220px;
-    background:url(img/record.png) no-repeat;
+    background:url(../img/record.png) no-repeat;
     _background:none;
-    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/record.png");
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../img/record.png");
 }
 p,ul {
     float:left;
-    width:250px;
+    width:300px;
 }
 p,li {
     height:220px;
