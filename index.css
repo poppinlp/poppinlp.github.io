@@ -27,10 +27,17 @@ a:hover {
     width:820px;
     height:220px;
 }
-img,p,ul {
+.record {
+    display:block;
     float:left;
+    height:220px;
+    width:220px;
+    background:url(img/record.png) no-repeat;
+    _background:none;
+    _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/record.png");
 }
 p,ul {
+    float:left;
     width:250px;
 }
 p,li {
