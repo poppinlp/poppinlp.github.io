@@ -77,5 +77,5 @@ module.exports = function(grunt) {
         });
     });
 
-    grunt.registerTask('default', ['uglify', 'sass', 'imagemin', 'htmlmin']);
+    grunt.registerTask('default', ['uglify', 'sass', 'imagemin', 'htmlmin', 'md2html']);
 };
