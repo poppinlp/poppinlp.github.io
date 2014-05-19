@@ -56,6 +56,7 @@ module.exports = function(grunt) {
     grunt.registerTask('md2html', 'Build html pages from markdown file', function() {
         var done = this.async(),
             md = require('marked'),
+            markup = grunt.file.read('src/template.html', { encoding: 'utf8' }),
             destPath, text;
 
         md.setOptions({
@@ -68,10 +69,13 @@ module.exports = function(grunt) {
         });
 
         grunt.file.recurse('src/md', function (path, rootdir, subdir, file) {
+            file = file.slice(0, -3);
             text = md(grunt.file.read(path, { encoding: 'utf8' }));
-            file = file.slice(0, -2) + 'html';
+            markup = markup.replace('{{Title}}', file);
+            markup = markup.replace('{{Content}}', text);
+            file += '.html';
             destPath = subdir ? 'pages/' + subdir + '/' + file : 'pages/' + file;
-            grunt.file.write(destPath, text, { encoding: 'utf8' });
+            grunt.file.write(destPath, markup, { encoding: 'utf8' });
             grunt.log.ok('Build ' + destPath + ' successfully.');
             done();
         });
