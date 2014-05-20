@@ -53,7 +53,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
 
-    grunt.registerTask('md2html', 'Build html pages from markdown file', function() {
+    grunt.registerTask('md2html', 'Build html pages from markdown file', function () {
         var done = this.async(),
             md = require('marked'),
             markup = grunt.file.read('src/template.html', { encoding: 'utf8' }),
@@ -64,8 +64,7 @@ module.exports = function(grunt) {
             gfm: true,
             tables: true,
             breaks: true,
-            smartLists: true,
-            highlight: true
+            smartLists: true
         });
 
         grunt.file.recurse('src/md', function (path, rootdir, subdir, file) {
