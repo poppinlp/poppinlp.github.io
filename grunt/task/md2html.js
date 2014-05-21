@@ -16,13 +16,12 @@ module.exports = exports = function(grunt) {
 
         grunt.file.recurse('src/md', function (path, rootdir, subdir, file) {
             file = file.slice(0, -3);
-            text = md(grunt.file.read(path, { encoding: 'utf8' }));
-            markup = markup.replace('{{Title}}', file);
-            markup = markup.replace('{{Content}}', text);
+            text = markup.replace('{{Title}}', file);
+            text = text.replace('{{Content}}', md(grunt.file.read(path, { encoding: 'utf8' })));
             file += '.html';
             destPath = subdir ? 'pages/' + subdir + '/' + file : 'pages/' + file;
             urlList.push(destPath);
-            grunt.file.write(destPath, markup, { encoding: 'utf8' });
+            grunt.file.write(destPath, text, { encoding: 'utf8' });
             grunt.log.ok('Build ' + destPath + ' successfully.');
         });
 
