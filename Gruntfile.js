@@ -45,6 +45,28 @@ module.exports = function(grunt) {
                     'index.html': 'src/index.html'
                 }
             }
+        },
+        jshint: {
+            options: grunt.file.readJSON(__dirname + '/.jshintrc'),
+            www: {
+                src: ['src/js/*.js']
+            }
+        },
+        watch: {
+            scripts: {
+                files: ['src/js/*.js'],
+                tasks: ['jshint', 'uglify'],
+                options: {
+                    interrupt: true
+                }
+            },
+            sass: {
+                files: ['src/sass/*.scss'],
+                tasks: ['sass'],
+                options: {
+                    interrupt: true
+                }
+            }
         }
     });
 
@@ -52,6 +74,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     grunt.registerTask('md2html', 'Build html pages from markdown file', function () {
         var done = this.async(),
@@ -80,5 +104,5 @@ module.exports = function(grunt) {
         });
     });
 
-    grunt.registerTask('default', ['uglify', 'sass', 'imagemin', 'htmlmin', 'md2html']);
+    grunt.registerTask('default', ['jshint', 'uglify', 'sass', 'imagemin', 'htmlmin', 'md2html']);
 };
