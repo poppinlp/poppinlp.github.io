@@ -3,7 +3,8 @@ module.exports = exports = function(grunt) {
         var done = this.async(),
             md = require('marked'),
             markup = grunt.file.read('src/template.html', { encoding: 'utf8' }),
-            destPath, text;
+            jsonFile = 'list.json',
+            destPath, text, urlList = [];
 
         md.setOptions({
             renderer: new md.Renderer(),
@@ -20,9 +21,12 @@ module.exports = exports = function(grunt) {
             markup = markup.replace('{{Content}}', text);
             file += '.html';
             destPath = subdir ? 'pages/' + subdir + '/' + file : 'pages/' + file;
+            urlList.push(destPath);
             grunt.file.write(destPath, markup, { encoding: 'utf8' });
             grunt.log.ok('Build ' + destPath + ' successfully.');
-            done();
         });
+
+        grunt.file.write(jsonFile, JSON.stringify(urlList), { encoding: 'utf8' });
+        done();
     });
 }
