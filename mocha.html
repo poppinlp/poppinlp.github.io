@@ -5,7 +5,7 @@
     <title>Mocha - the fun, simple, flexible JavaScript test framework</title>
     <link rel="stylesheet" href="css/mocha/normalize.min.css">
     <link rel="stylesheet" href="css/mocha/style.css">
-    <link rel="shortcut icon" href="img/mocha.ico">
+    <link rel="shortcut icon" href="img/mocha/mocha.ico">
     <!--[if lt IE 9]>
         <script src="js/mocha/html5shiv.js"></script>
     <![endif]-->
@@ -59,12 +59,12 @@
             <li><a href="#assertions">断言</a></li>
             <li><a href="#synchronous-code">同步执行的代码</a></li>
             <li><a href="#asynchronous-code">异步执行的代码</a></li>
-            <li><a href="#pending-tests">Pending tests</a></li>
-            <li><a href="#exclusive-tests">Exclusive tests</a></li>
-            <li><a href="#inclusive-tests">Inclusive tests</a></li>
-            <li><a href="#test-duration">Test duration</a></li>
+            <li><a href="#pending-tests">挂起测试</a></li>
+            <li><a href="#exclusive-tests">独占测试</a></li>
+            <li><a href="#inclusive-tests">包含测试</a></li>
+            <li><a href="#test-duration">测试的过程</a></li>
             <li><a href="#string-diffs">String diffs</a></li>
-            <li><a href="#usage">mocha(1)</a></li>
+            <li><a href="#usage">命令行参数</a></li>
             <li><a href="#interfaces">Interfaces</a></li>
             <li><a href="#reporters">Reporters</a></li>
             <li><a href="#browser-support">Browser support</a></li>
@@ -185,29 +185,28 @@ describe('#find()', function() {
 });</code></pre>
         <p>（上面的例子使用了<a href="https://github.com/domenic/chai-as-promised/">Chai as Promised</a>作为promise断言。）</p>
 
-        <p>Note that you may also pick any file and add "root" level hooks, for example add <code>beforeEach()</code> outside of <code>describe()</code>s then the callback will run before any test-case regardless of the file its in. This is because Mocha has a root <code>Suite</code> with no name.</p>
-
+        <p>注意，你也可以在任意文件中加入“全局”级别的钩子，例如在<code>describe()</code>外面添加<code>beforeEach()</code>，这样回调函数就会在每一个测试用例前执行而不管测试用例是否在这个文件中。产生这样的结果是因为Mocha运行在自己的全局匿名<code>Suite</code>中。
 <pre><code>beforeEach(function() {
     console.log('before every test')
 });</code></pre>
 
-        <h2 id="pending-tests">Pending tests</h2>
-        <p>Pending test-cases are simply those without a callback:</p>
+        <h2 id="pending-tests">挂起测试</h2>
+        <p>挂起的测试是指那些没有回调函数的测试用例：</p>
 <pre><code>describe('Array', function() {
     describe('#indexOf()', function() {
         it('should return -1 when the value is not present');
     });
 });</code></pre>
 
-        <h2 id="exclusive-tests">Exclusive tests</h2>
-        <p>The exclusivity feature allows you to run only the specified suite or test-case by appending <code>.only()</code> to the call as shown here:</p>
+        <h2 id="exclusive-tests">独占测试</h2>
+        <p>独占这个特性允许你像下面例子那样通过添加<code>.only()</code>来只执行指定的测试场景：</p>
 <pre><code>describe('Array', function() {
     describe.only('#indexOf()', function() {
         ...
     });
 });</code></pre>
 
-        <p>Or a specific test-case:</p>
+        <p>或者指定的测试用例：</p>
 <pre><code>describe('Array', function() {
     describe('#indexOf()', function() {
         it.only('should return -1 unless present', function() {
@@ -220,17 +219,17 @@ describe('#find()', function() {
     });
 });</code></pre>
 
-        <p>Note that currently only one <code>.only()</code> call is respected, this effectively turns into a <code>--grep</code>.</p>
+        <p>注意，目前只考虑使用最多一个<code>.only()</code>，这能有效的达到<code>--grep</code>的效果。</p>
 
-        <h2 id="inclusive-tests">Inclusive tests</h2>
-        <p>This feature is similar to <code>.only()</code>, however by appending <code>.skip()</code> you may tell Mocha to simply ignore these suite(s) and test-case(s). This puts them in a pending state, and is favoured over commenting out tests which you may forget to uncomment.</p>
+        <h2 id="inclusive-tests">包含测试</h2>
+        <p>这个特性类似于<code>.only</code>，你可以通过添加<code>.skip()</code>来告诉Mocha忽略掉这个测试场景和测试用例。这会让它们被挂起，有助于在你忘记去掉注释的时候跳过那些测试。</p>
 <pre><code>describe('Array', function() {
     describe.skip('#indexOf()', function() {
         ...
     });
 });</code></pre>
 
-        <p>Or a specific test-case:</p>
+        <p>对测试用例同样适用：</p>
 <pre><code>describe('Array', function() {
     describe('#indexOf()', function() {
         it.skip('should return -1 unless present', function() {
@@ -243,15 +242,15 @@ describe('#find()', function() {
     });
 });</code></pre>
 
-        <h2 id="test-duration">Test duration</h2>
-        <p>Most of the reporters support some form of displaying test duration, as well as flagging tests that are slow, as shown here with the "spec" reporter:</p>
-        <p><img src="images/reporter-spec-duration.png" alt="test duration" title="" /></p>
+        <h2 id="test-duration">测试的过程</h2>
+        <p>大多数结果展示工具支持一些格式化的测试过程展示。下面是"spec"的效果：</p>
+        <p><img src="img/mocha/reporter-spec-duration.png" alt="test duration" title="" height="412" width="655" /></p>
 
         <h2 id="string-diffs">String diffs</h2>
         <p>Mocha supports the <code>err.expected</code>, and <code>err.actual</code> properties when available to present expectations to the developer. Currently Mocha provides string diffs, however in the future object diffs and others may be provided.</p>
-        <p><img src="images/reporter-string-diffs.png" alt="string diffs" title="" /></p>
+        <p><img src="img/mocha/reporter-string-diffs.png" alt="string diffs" title="" width="794" height="623" /></p>
 
-        <h2 id="usage">mocha(1)</h2>
+        <h2 id="usage">命令行参数</h2>
 <pre><code>Usage: mocha [debug] [options] [files]
 
 Commands:
@@ -285,71 +284,70 @@ Options:
 --reporters                     display available reporters
 --compilers &lt;ext&gt;:&lt;module&gt;,...  use the given module(s) to compile files</code></pre>
 
-    <h3 id="watch-option">-w, --watch</h3>
+        <h3 id="watch-option">-w, --watch</h3>
 
-    <p>Executes tests on changes to JavaScript in the CWD, and once initially.</p>
+        <p>Executes tests on changes to JavaScript in the CWD, and once initially.</p>
 
-    <h3 id="compilers-option">--compilers</h3>
+        <h3 id="compilers-option">--compilers</h3>
 
-    <p>coffee-script is no longer supported out of the box. CS and similar transpilers
-    may be used by mapping the file extensions (for use with --watch) and the module
-    name. For example <code>--compilers coffee:coffee-script</code> with CoffeeScript 1.6- or
-    <code>--compilers coffee:coffee-script/register</code> with CoffeeScript 1.7+.</p>
+        <p>coffee-script is no longer supported out of the box. CS and similar transpilers
+        may be used by mapping the file extensions (for use with --watch) and the module
+        name. For example <code>--compilers coffee:coffee-script</code> with CoffeeScript 1.6- or
+        <code>--compilers coffee:coffee-script/register</code> with CoffeeScript 1.7+.</p>
 
-    <h3 id="bail-option">-b, --bail</h3>
+        <h3 id="bail-option">-b, --bail</h3>
 
-    <p>Only interested in the first exception? use <code>--bail</code> !</p>
+        <p>Only interested in the first exception? use <code>--bail</code> !</p>
 
-    <h3 id="debug-option">-d, --debug</h3>
+        <h3 id="debug-option">-d, --debug</h3>
 
-    <p>Enables node's debugger support, this executes your script(s) with <code>node debug &lt;file ...&gt;</code> allowing you to step through code and break with the <code>debugger</code> statement. Note the difference between <code>mocha debug</code> and <code>mocha --debug</code>: <code>mocha debug</code> will fire up node's built-in debug client, <code>mocha --debug</code> will allow you to use a different interface — such as the Blink Developer Tools.</p>
+        <p>Enables node's debugger support, this executes your script(s) with <code>node debug &lt;file ...&gt;</code> allowing you to step through code and break with the <code>debugger</code> statement. Note the difference between <code>mocha debug</code> and <code>mocha --debug</code>: <code>mocha debug</code> will fire up node's built-in debug client, <code>mocha --debug</code> will allow you to use a different interface — such as the Blink Developer Tools.</p>
 
-    <h3 id="globals-option">--globals &lt;names&gt;</h3>
+        <h3 id="globals-option">--globals &lt;names&gt;</h3>
 
-    <p>Accepts a comma-delimited list of accepted global variable names. For example, suppose your app deliberately exposes a global named <code>app</code> and <code>YUI</code>, you may want to add <code>--globals app,YUI</code>. It also accepts wildcards. You could do <code>--globals '*bar'</code> and it would match <code>foobar</code>, <code>barbar</code>, etc. You can also simply pass in <code>'*'</code> to ignore all globals.</p>
+        <p>Accepts a comma-delimited list of accepted global variable names. For example, suppose your app deliberately exposes a global named <code>app</code> and <code>YUI</code>, you may want to add <code>--globals app,YUI</code>. It also accepts wildcards. You could do <code>--globals '*bar'</code> and it would match <code>foobar</code>, <code>barbar</code>, etc. You can also simply pass in <code>'*'</code> to ignore all globals.</p>
 
-    <h3 id="ignore-leaks-option">--check-leaks</h3>
+        <h3 id="ignore-leaks-option">--check-leaks</h3>
 
-    <p>By default Mocha will not check for global variables leaked while running tests, to enable this pass <code>--check-leaks</code>, to specify globals that are acceptable use <code>--globals</code>, for example <code>--globals jQuery,MyLib</code>.</p>
+        <p>By default Mocha will not check for global variables leaked while running tests, to enable this pass <code>--check-leaks</code>, to specify globals that are acceptable use <code>--globals</code>, for example <code>--globals jQuery,MyLib</code>.</p>
 
-    <h3 id="require-option">-r, --require &lt;name&gt;</h3>
+        <h3 id="require-option">-r, --require &lt;name&gt;</h3>
 
-    <p>The <code>--require</code> option is useful for libraries such as <a href="https://github.com/visionmedia/should.js">should.js</a>, so you may simply <code>--require should</code> instead of manually invoking <code>require('should')</code> within each test file. Note that this works well for <code>should</code> as it augments <code>Object.prototype</code>, however if you wish to access a module's exports you will have to require them, for example <code>var should = require('should')</code>.</p>
+        <p>The <code>--require</code> option is useful for libraries such as <a href="https://github.com/visionmedia/should.js">should.js</a>, so you may simply <code>--require should</code> instead of manually invoking <code>require('should')</code> within each test file. Note that this works well for <code>should</code> as it augments <code>Object.prototype</code>, however if you wish to access a module's exports you will have to require them, for example <code>var should = require('should')</code>.</p>
 
-    <h3 id="ui-option">-u, --ui &lt;name&gt;</h3>
+        <h3 id="ui-option">-u, --ui &lt;name&gt;</h3>
 
-    <p>The <code>--ui</code> option lets you specify the interface to use, defaulting to "bdd".</p>
+        <p>The <code>--ui</code> option lets you specify the interface to use, defaulting to "bdd".</p>
 
-    <h3 id="reporter-option">-R, --reporter &lt;name&gt;</h3>
+        <h3 id="reporter-option">-R, --reporter &lt;name&gt;</h3>
 
-    <p>The <code>--reporter</code> option allows you to specify the reporter that will be used, defaulting to "dot". This flag may also be used to utilize third-party reporters. For example if you <code>npm install mocha-lcov-reporter</code> you may then do <code>--reporter mocha-lcov-reporter</code>.</p>
+        <p>The <code>--reporter</code> option allows you to specify the reporter that will be used, defaulting to "dot". This flag may also be used to utilize third-party reporters. For example if you <code>npm install mocha-lcov-reporter</code> you may then do <code>--reporter mocha-lcov-reporter</code>.</p>
 
-    <h3 id="timeout-option">-t, --timeout &lt;ms&gt;</h3>
+        <h3 id="timeout-option">-t, --timeout &lt;ms&gt;</h3>
 
-    <p>Specifies the test-case timeout, defaulting to 2 seconds. To override you may pass the timeout in milliseconds, or a value with the <code>s</code> suffix, ex: <code>--timeout 2s</code> or <code>--timeout 2000</code> would be equivalent.</p>
+        <p>Specifies the test-case timeout, defaulting to 2 seconds. To override you may pass the timeout in milliseconds, or a value with the <code>s</code> suffix, ex: <code>--timeout 2s</code> or <code>--timeout 2000</code> would be equivalent.</p>
 
-    <h3 id="slow-option">-s, --slow &lt;ms&gt;</h3>
+        <h3 id="slow-option">-s, --slow &lt;ms&gt;</h3>
 
-    <p>Specify the "slow" test threshold, defaulting to 75ms. Mocha uses this to highlight test-cases that are taking too long.</p>
+        <p>Specify the "slow" test threshold, defaulting to 75ms. Mocha uses this to highlight test-cases that are taking too long.</p>
 
-    <h3 id="grep-option">-g, --grep &lt;pattern&gt;</h3>
+        <h3 id="grep-option">-g, --grep &lt;pattern&gt;</h3>
 
-    <p>The <code>--grep</code> option when specified will trigger mocha to only run tests matching the given <code>pattern</code> which is internally compiled to a <code>RegExp</code>.</p>
+        <p>The <code>--grep</code> option when specified will trigger mocha to only run tests matching the given <code>pattern</code> which is internally compiled to a <code>RegExp</code>.</p>
 
-    <p>Suppose for example you have "api" related tests, as well as "app" related tests, as shown in the following snippet; One could use <code>--grep api</code> or <code>--grep app</code> to run one or the other. The same goes for any other part of a suite or test-case title, <code>--grep users</code> would be valid as well, or even <code>--grep GET</code>.</p>
+        <p>Suppose for example you have "api" related tests, as well as "app" related tests, as shown in the following snippet; One could use <code>--grep api</code> or <code>--grep app</code> to run one or the other. The same goes for any other part of a suite or test-case title, <code>--grep users</code> would be valid as well, or even <code>--grep GET</code>.</p>
 
-    <pre><code>describe('api', function(){
-    describe('GET /api/users', function(){
-    it('respond with an array of users')
-    })
-    })
+<pre><code>describe('api', function() {
+    describe('GET /api/users', function() {
+        it('respond with an array of users')
+        });
+    });
 
-    describe('app', function(){
-    describe('GET /users', function(){
-    it('respond with an array of users')
-    })
-    })
-    </code></pre>
+    describe('app', function() {
+        describe('GET /users', function() {
+        it('respond with an array of users')
+    });
+});</code></pre>
 
     <h2 id="interfaces">Interfaces</h2>
 
@@ -359,84 +357,80 @@ Options:
 
     <p>The "<strong>BDD</strong>" interface provides <code>describe()</code>, <code>it()</code>, <code>before()</code>, <code>after()</code>, <code>beforeEach()</code>, and <code>afterEach()</code>:</p>
 
-    <pre><code>describe('Array', function(){
-    before(function(){
-    // ...
+<pre><code>describe('Array', function() {
+    before(function() {
+        // ...
     });
 
-    describe('#indexOf()', function(){
-    it('should return -1 when not present', function(){
-    [1,2,3].indexOf(4).should.equal(-1);
+    describe('#indexOf()', function() {
+        it('should return -1 when not present', function() {
+            [1,2,3].indexOf(4).should.equal(-1);
+        });
     });
-    });
-    });
-    </code></pre>
+});</code></pre>
 
     <h3 id="tdd-interface">TDD</h3>
 
     <p>The "<strong>TDD</strong>" interface provides <code>suite()</code>, <code>test()</code>, <code>setup()</code>, and <code>teardown()</code>.</p>
 
-    <pre><code>suite('Array', function(){
-    setup(function(){
-    // ...
+<pre><code>suite('Array', function() {
+    setup(function() {
+        // ...
     });
 
-    suite('#indexOf()', function(){
-    test('should return -1 when not present', function(){
-    assert.equal(-1, [1,2,3].indexOf(4));
+    suite('#indexOf()', function() {
+        test('should return -1 when not present', function() {
+            assert.equal(-1, [1,2,3].indexOf(4));
+        });
     });
-    });
-    });
-    </code></pre>
+});</code></pre>
 
     <h3 id="exports-interface">Exports</h3>
 
     <p>The "<strong>exports</strong>" interface is much like Mocha's predecessor <a href="https://github.com/visionmedia/expresso">expresso</a>. The keys <code>before</code>, <code>after</code>, <code>beforeEach</code>, and <code>afterEach</code> are special-cased, object values
     are suites, and function values are test-cases.</p>
 
-    <pre><code>module.exports = {
-    before: function(){
-    // ...
+<pre><code>module.exports = {
+    before: function() {
+        // ...
     },
 
     'Array': {
-    '#indexOf()': {
-    'should return -1 when not present': function(){
-    [1,2,3].indexOf(4).should.equal(-1);
-    }
-    }
-    }
+        '#indexOf()': {
+            'should return -1 when not present': function() {
+                [1,2,3].indexOf(4).should.equal(-1);
+            };
+        };
     };
-    </code></pre>
+};</code></pre>
 
     <h3 id="qunit-interface">QUnit</h3>
 
     <p>The qunit-inspired interface matches the "flat" look of QUnit where the test suite title is simply defined before the test-cases.</p>
 
-    <pre><code>function ok(expr, msg) {
+<pre><code>function ok(expr, msg) {
     if (!expr) throw new Error(msg);
-    }
+}
 
-    suite('Array');
+suite('Array');
 
-    test('#length', function(){
+test('#length', function() {
     var arr = [1,2,3];
     ok(arr.length == 3);
-    });
+});
 
-    test('#indexOf()', function(){
+test('#indexOf()', function() {
     var arr = [1,2,3];
     ok(arr.indexOf(1) == 0);
     ok(arr.indexOf(2) == 1);
     ok(arr.indexOf(3) == 2);
-    });
+});
 
-    suite('String');
+suite('String');
 
-    test('#length', function(){
+test('#length', function(){
     ok('foo'.length == 3);
-    });
-    </code></pre>
+});</code></pre>
 
     <h3 id="require-interface">Require</h3>
 
@@ -444,23 +438,22 @@ Options:
     directly using <code>require</code> and call them whatever you want. This interface
     is also useful if you want to avoid global variables in your tests.</p>
 
-    <pre><code>var testCase = require('mocha').describe
-    var pre = require('mocha').before
-    var assertions = require('mocha').assertions
-    var assert = require('assert')
+<pre><code>var testCase = require('mocha').describe;
+var pre = require('mocha').before;
+var assertions = require('mocha').assertions;
+var assert = require('assert');
 
-    testCase('Array', function(){
-    pre(function(){
-    // ...
+testCase('Array', function() {
+    pre(function() {
+        // ...
     });
 
-    testCase('#indexOf()', function(){
-    assertions('should return -1 when not present', function(){
-    assert.equal([1,2,3].indexOf(4), -1);
+    testCase('#indexOf()', function() {
+        assertions('should return -1 when not present', function() {
+        assert.equal([1,2,3].indexOf(4), -1);
+        });
     });
-    });
-    });
-    </code></pre>
+});</code></pre>
 
     <h2 id="reporters">Reporters</h2>
 
@@ -561,32 +554,31 @@ Options:
 
     <p>For example suppose you have the following JavaScript:</p>
 
-    <pre><code>describe('Array', function(){
-    describe('#indexOf()', function(){
-    it('should return -1 when the value is not present', function(){
-    [1,2,3].indexOf(5).should.equal(-1);
-    [1,2,3].indexOf(0).should.equal(-1);
-    })
-    })
-    })
-    </code></pre>
+<pre><code>describe('Array', function() {
+    describe('#indexOf()', function() {
+        it('should return -1 when the value is not present', function() {
+            [1,2,3].indexOf(5).should.equal(-1);
+            [1,2,3].indexOf(0).should.equal(-1);
+        });
+    });
+});</code></pre>
 
     <p>The command <code>mocha --reporter doc array</code> would yield:</p>
 
-    <pre><code>&lt;section class="suite"&gt;
-    &lt;h1&gt;Array&lt;/h1&gt;
-    &lt;dl&gt;
-    &lt;section class="suite"&gt;
-    &lt;h1&gt;#indexOf()&lt;/h1&gt;
-    &lt;dl&gt;
-    &lt;dt&gt;should return -1 when the value is not present&lt;/dt&gt;
-    &lt;dd&gt;&lt;pre&gt;&lt;code&gt;[1,2,3].indexOf(5).should.equal(-1);
-    [1,2,3].indexOf(0).should.equal(-1);&lt;/code&gt;&lt;/pre&gt;&lt;/dd&gt;
-    &lt;/dl&gt;
-    &lt;/section&gt;
-    &lt;/dl&gt;
-    &lt;/section&gt;
-    </code></pre>
+<pre><code>&lt;section class="suite"&gt;
+&lt;h1&gt;Array&lt;/h1&gt;
+&lt;dl&gt;
+&lt;section class="suite"&gt;
+&lt;h1&gt;#indexOf()&lt;/h1&gt;
+&lt;dl&gt;
+&lt;dt&gt;should return -1 when the value is not present&lt;/dt&gt;
+&lt;dd&gt;&lt;pre&gt;&lt;code&gt;[1,2,3].indexOf(5).should.equal(-1);
+[1,2,3].indexOf(0).should.equal(-1);&lt;/code&gt;&lt;/pre&gt;&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/section&gt;
+&lt;/dl&gt;
+&lt;/section&gt;
+</code></pre>
 
     <p>The SuperAgent request library <a href="http://visionmedia.github.io/superagent/docs/test.html">test documentation</a> was generated with Mocha's doc reporter using this simple make target:</p>
 
@@ -624,29 +616,29 @@ Options:
 
     <p>Mocha runs in the browser. Every release of Mocha will have new builds of <em>./mocha.js</em> and <em>./mocha.css</em> for use in the browser. To setup Mocha for browser use all you have to do is include the script, stylesheet, tell Mocha which interface you wish to use, and then run the tests. A typical setup might look something like the following, where we call <code>mocha.setup('bdd')</code> to use the <strong>BDD</strong> interface before loading the test scripts, running them <code>onload</code> with <code>mocha.run()</code>.</p>
 
-    <pre><code>&lt;html&gt;
-    &lt;head&gt;
-    &lt;meta charset="utf-8"&gt;
-    &lt;title&gt;Mocha Tests&lt;/title&gt;
-    &lt;link rel="stylesheet" href="mocha.css" /&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-    &lt;div id="mocha"&gt;&lt;/div&gt;
-    &lt;script src="jquery.js"&gt;&lt;/script&gt;
-    &lt;script src="expect.js"&gt;&lt;/script&gt;
-    &lt;script src="mocha.js"&gt;&lt;/script&gt;
-    &lt;script&gt;mocha.setup('bdd')&lt;/script&gt;
-    &lt;script src="test.array.js"&gt;&lt;/script&gt;
-    &lt;script src="test.object.js"&gt;&lt;/script&gt;
-    &lt;script src="test.xhr.js"&gt;&lt;/script&gt;
-    &lt;script&gt;
-    mocha.checkLeaks();
-    mocha.globals(['jQuery']);
-    mocha.run();
-    &lt;/script&gt;
-    &lt;/body&gt;
-    &lt;/html&gt;
-    </code></pre>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Mocha Tests&lt;/title&gt;
+&lt;link rel="stylesheet" href="mocha.css" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="mocha"&gt;&lt;/div&gt;
+&lt;script src="jquery.js"&gt;&lt;/script&gt;
+&lt;script src="expect.js"&gt;&lt;/script&gt;
+&lt;script src="mocha.js"&gt;&lt;/script&gt;
+&lt;script&gt;mocha.setup('bdd')&lt;/script&gt;
+&lt;script src="test.array.js"&gt;&lt;/script&gt;
+&lt;script src="test.object.js"&gt;&lt;/script&gt;
+&lt;script src="test.xhr.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+mocha.checkLeaks();
+mocha.globals(['jQuery']);
+mocha.run();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 
     <h3 id="grep-query">grep</h3>
 
@@ -656,18 +648,17 @@ Options:
 
     <p>Mocha will attempt to load <code>./test/mocha.opts</code>, these are concatenated with <code>process.argv</code>, though command-line args will take precedence. For example suppose you have the following <em>mocha.opts</em> file:</p>
 
-    <pre><code>--require should
-    --reporter dot
-    --ui bdd
-    </code></pre>
+<pre><code>--require should
+--reporter dot
+--ui bdd
+</code></pre>
 
     <p>This will default the reporter to <code>dot</code>, require the <code>should</code> library,
     and use <code>bdd</code> as the interface. With this you may then invoke <code>mocha(1)</code>
     with additional arguments, here enabling growl support and changing
     the reporter to <code>spec</code>:</p>
 
-    <pre><code>$ mocha --reporter list --growl
-    </code></pre>
+<pre><code>$ mocha --reporter list --growl</code></pre>
 
     <h2 id="suite-specific-timeouts">Suite specific timeouts</h2>
 
@@ -675,30 +666,27 @@ Options:
     via <code>this.timeout(0)</code>. This will be inherited by all nested suites and test-cases
     that do not override the value.</p>
 
-    <pre><code>describe('a suite of tests', function(){
+<pre><code>describe('a suite of tests', function() {
     this.timeout(500);
 
-    it('should take less than 500ms', function(done){
-    setTimeout(done, 300);
-    })
+    it('should take less than 500ms', function(done) {
+        setTimeout(done, 300);
+    });
 
-    it('should take less than 500ms as well', function(done){
-    setTimeout(done, 200);
-    })
-    })
-    </code></pre>
+    it('should take less than 500ms as well', function(done) {
+        setTimeout(done, 200);
+    });
+});</code></pre>
 
     <h2 id="test-specific-timeouts">Test specific timeouts</h2>
 
     <p>Test-specific timeouts may also be applied, or the use of <code>this.timeout(0)</code>
     to disable timeouts all together:</p>
 
-    <pre><code>it('should take less than 500ms', function(done){
+<pre><code>it('should take less than 500ms', function(done) {
     this.timeout(500);
     setTimeout(done, 300);
-    })
-    </code></pre>
-
+});</code></pre> 
     <h2 id="best-practices">Best practices</h2>
 
     <h3 id="test-directory">test/*</h3>
@@ -711,11 +699,11 @@ Options:
     <p>Be kind and don't make developers hunt around in your docs to figure
     out how to run the tests, add a <code>make test</code> target to your <em>Makefile</em>:</p>
 
-    <pre><code>test:
-    ./node_modules/.bin/mocha --reporter list
+<pre><code>test:
+./node_modules/.bin/mocha --reporter list
 
-    .PHONY: test
-    </code></pre>
+.PHONY: test
+</code></pre>
 
     <h2 id="editors">Editors</h2>
 
@@ -727,8 +715,7 @@ Options:
     make writing tests quicker and more enjoyable.
     To install the bundle run:</p>
 
-    <pre><code>$ make tm
-    </code></pre>
+<pre><code>$ make tm</code></pre>
 
     <h2 id="example-test-suites">Example test suites</h2>
 
@@ -747,18 +734,15 @@ Options:
 
     <p>Run the tests:</p>
 
-    <pre><code>$ make test
-    </code></pre>
+<pre><code>$ make test</code></pre>
 
     <p>Run all tests, including interfaces:</p>
 
-    <pre><code>$ make test-all
-    </code></pre>
+<pre><code>$ make test-all</code></pre>
 
     <p>Alter the reporter:</p>
 
-    <pre><code>$ make test REPORTER=list
-    </code></pre>
+<pre><code>$ make test REPORTER=list</code></pre>
 
     <h2 id="more-information">More information</h2>
 
