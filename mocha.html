@@ -63,11 +63,11 @@
             <li><a href="#exclusive-tests">独占测试</a></li>
             <li><a href="#inclusive-tests">包含测试</a></li>
             <li><a href="#test-duration">测试的过程</a></li>
-            <li><a href="#string-diffs">String diffs</a></li>
+            <li><a href="#string-diffs">差异检测</a></li>
             <li><a href="#usage">命令行参数</a></li>
-            <li><a href="#interfaces">Interfaces</a></li>
+            <li><a href="#interfaces">接口</a></li>
             <li><a href="#reporters">Reporters</a></li>
-            <li><a href="#browser-support">Browser support</a></li>
+            <li><a href="#browser-support">浏览器支持</a></li>
             <li><a href="#mocha.opts">mocha.opts</a></li>
             <li><a href="#suite-specific-timeouts">Suite specific timeouts</a></li>
             <li><a href="#test-specific-timeouts">Test specific timeouts</a></li>
@@ -75,7 +75,7 @@
             <li><a href="#editors">Editors</a></li>
             <li><a href="#example-test-suites">Example test suites</a></li>
             <li><a href="#running-mochas-tests">Running mocha's tests</a></li>
-            <li><a href="#more-information">More information</a></li>
+            <li><a href="#more-information">更多信息</a></li>
         </ul>
 
         <h2 id="installation">如何安装</h2>
@@ -246,8 +246,8 @@ describe('#find()', function() {
         <p>大多数结果展示工具支持一些格式化的测试过程展示。下面是"spec"的效果：</p>
         <p><img src="img/mocha/reporter-spec-duration.png" alt="test duration" title="" height="412" width="655" /></p>
 
-        <h2 id="string-diffs">String diffs</h2>
-        <p>Mocha supports the <code>err.expected</code>, and <code>err.actual</code> properties when available to present expectations to the developer. Currently Mocha provides string diffs, however in the future object diffs and others may be provided.</p>
+        <h2 id="string-diffs">差异检测</h2>
+        <p>当需要向开发者呈现差异的时候，Mocha支持<code>err.expected</code>和<code>err.actual</code>属性。目前Mocha提供了字符串差异，以后会提供对象差异和其他的内容。</p>
         <p><img src="img/mocha/reporter-string-diffs.png" alt="string diffs" title="" width="794" height="623" /></p>
 
         <h2 id="usage">命令行参数</h2>
@@ -349,13 +349,13 @@ Options:
     });
 });</code></pre>
 
-    <h2 id="interfaces">Interfaces</h2>
+        <h2 id="interfaces">接口</h2>
 
-    <p>Mocha "interface" system allows developers to choose their style of DSL. Shipping with <strong>BDD</strong>, <strong>TDD</strong>, and <strong>exports</strong> flavoured interfaces.</p>
+        <p>Mocha "interface" system allows developers to choose their style of DSL. Shipping with <strong>BDD</strong>, <strong>TDD</strong>, and <strong>exports</strong> flavoured interfaces.</p>
 
-    <h3 id="bdd-interface">BDD</h3>
+        <h3 id="bdd-interface">BDD</h3>
 
-    <p>The "<strong>BDD</strong>" interface provides <code>describe()</code>, <code>it()</code>, <code>before()</code>, <code>after()</code>, <code>beforeEach()</code>, and <code>afterEach()</code>:</p>
+        <p>The "<strong>BDD</strong>" interface provides <code>describe()</code>, <code>it()</code>, <code>before()</code>, <code>after()</code>, <code>beforeEach()</code>, and <code>afterEach()</code>:</p>
 
 <pre><code>describe('Array', function() {
     before(function() {
@@ -369,9 +369,9 @@ Options:
     });
 });</code></pre>
 
-    <h3 id="tdd-interface">TDD</h3>
+        <h3 id="tdd-interface">TDD</h3>
 
-    <p>The "<strong>TDD</strong>" interface provides <code>suite()</code>, <code>test()</code>, <code>setup()</code>, and <code>teardown()</code>.</p>
+        <p>The "<strong>TDD</strong>" interface provides <code>suite()</code>, <code>test()</code>, <code>setup()</code>, and <code>teardown()</code>.</p>
 
 <pre><code>suite('Array', function() {
     setup(function() {
@@ -385,10 +385,9 @@ Options:
     });
 });</code></pre>
 
-    <h3 id="exports-interface">Exports</h3>
+        <h3 id="exports-interface">Exports</h3>
 
-    <p>The "<strong>exports</strong>" interface is much like Mocha's predecessor <a href="https://github.com/visionmedia/expresso">expresso</a>. The keys <code>before</code>, <code>after</code>, <code>beforeEach</code>, and <code>afterEach</code> are special-cased, object values
-    are suites, and function values are test-cases.</p>
+        <p>The "<strong>exports</strong>" interface is much like Mocha's predecessor <a href="https://github.com/visionmedia/expresso">expresso</a>. The keys <code>before</code>, <code>after</code>, <code>beforeEach</code>, and <code>afterEach</code> are special-cased, object values are suites, and function values are test-cases.</p>
 
 <pre><code>module.exports = {
     before: function() {
@@ -404,9 +403,9 @@ Options:
     };
 };</code></pre>
 
-    <h3 id="qunit-interface">QUnit</h3>
+        <h3 id="qunit-interface">QUnit</h3>
 
-    <p>The qunit-inspired interface matches the "flat" look of QUnit where the test suite title is simply defined before the test-cases.</p>
+        <p>The qunit-inspired interface matches the "flat" look of QUnit where the test suite title is simply defined before the test-cases.</p>
 
 <pre><code>function ok(expr, msg) {
     if (!expr) throw new Error(msg);
@@ -432,11 +431,9 @@ test('#length', function(){
     ok('foo'.length == 3);
 });</code></pre>
 
-    <h3 id="require-interface">Require</h3>
+        <h3 id="require-interface">Require</h3>
 
-    <p>The <code>require</code> interface allows you to require the <code>describe</code> and friend words
-    directly using <code>require</code> and call them whatever you want. This interface
-    is also useful if you want to avoid global variables in your tests.</p>
+        <p>The <code>require</code> interface allows you to require the <code>describe</code> and friend words directly using <code>require</code> and call them whatever you want. This interface is also useful if you want to avoid global variables in your tests.</p>
 
 <pre><code>var testCase = require('mocha').describe;
 var pre = require('mocha').before;
@@ -455,70 +452,61 @@ testCase('Array', function() {
     });
 });</code></pre>
 
-    <h2 id="reporters">Reporters</h2>
+        <h2 id="reporters">Reporters</h2>
 
-    <p>Mocha reporters adjust to the terminal window,
-    and always disable ansi-escape colouring when
-    the stdio streams are not associated with a tty.</p>
+        <p>Mocha reporters adjust to the terminal window, and always disable ansi-escape colouring when the stdio streams are not associated with a tty.</p>
 
-    <h3 id="dot-matrix-reporter">Dot Matrix</h3>
+        <h3 id="dot-matrix-reporter">Dot Matrix</h3>
 
-    <p>The "dot" matrix reporter is simply a series of dots
-    that represent test cases, failures highlight in red,
-    pending in blue, slow as yellow.</p>
+        <p>The "dot" matrix reporter is simply a series of dots that represent test cases, failures highlight in red, pending in blue, slow as yellow.</p>
 
-    <p><img src="images/reporter-dot.png" alt="dot matrix reporter" title="" /></p>
+        <p><img src="images/reporter-dot.png" alt="dot matrix reporter" title="" /></p>
 
-    <h3 id="spec-reporter">Spec</h3>
+        <h3 id="spec-reporter">Spec</h3>
 
-    <p>The "spec" reporter outputs a hierarchical view
-    nested just as the test cases are.</p>
+        <p>The "spec" reporter outputs a hierarchical view nested just as the test cases are.</p>
 
-    <p><img src="images/reporter-spec.png" alt="spec reporter" title="" />
-    <img src="images/reporter-spec-fail.png" alt="spec reporter with failure" title="" /></p>
+        <p><img src="images/reporter-spec.png" alt="spec reporter" title="" />
+        <img src="images/reporter-spec-fail.png" alt="spec reporter with failure" title="" /></p>
 
-    <h3 id="nyan-reporter">Nyan</h3>
+        <h3 id="nyan-reporter">Nyan</h3>
 
-    <p>The "nyan" reporter is exactly what you might expect:</p>
+        <p>The "nyan" reporter is exactly what you might expect:</p>
 
-    <p><img src="images/reporter-nyan.png" alt="js nyan cat reporter" title="" /></p>
+        <p><img src="images/reporter-nyan.png" alt="js nyan cat reporter" title="" /></p>
 
-    <h3 id="tap-reporter">TAP</h3>
+        <h3 id="tap-reporter">TAP</h3>
 
-    <p>The TAP reporter emits lines for a <a href="http://en.wikipedia.org/wiki/Test_Anything_Protocol">Test-Anything-Protocol</a> consumer.</p>
+        <p>The TAP reporter emits lines for a <a href="http://en.wikipedia.org/wiki/Test_Anything_Protocol">Test-Anything-Protocol</a> consumer.</p>
 
-    <p><img src="images/reporter-tap.png" alt="test anything protocol" title="" /></p>
+        <p><img src="images/reporter-tap.png" alt="test anything protocol" title="" /></p>
 
-    <h3 id="landing-strip-reporter">Landing Strip</h3>
+        <h3 id="landing-strip-reporter">Landing Strip</h3>
 
-    <p>The Landing Strip reporter is a gimmicky test reporter simulating
-    a plane landing :) unicode ftw</p>
+        <p>The Landing Strip reporter is a gimmicky test reporter simulating a plane landing :) unicode ftw</p>
 
-    <p><img src="images/reporter-landing.png" alt="landing strip plane reporter" title="" />
-    <img src="images/reporter-landing-fail.png" alt="landing strip with failure" title="" /></p>
+        <p><img src="images/reporter-landing.png" alt="landing strip plane reporter" title="" />
+        <img src="images/reporter-landing-fail.png" alt="landing strip with failure" title="" /></p>
 
-    <h3 id="list-reporter">List</h3>
+        <h3 id="list-reporter">List</h3>
 
-    <p>The "List" reporter outputs a simple specifications list as
-    test cases pass or fail, outputting the failure details at
-    the bottom of the output.</p>
+        <p>The "List" reporter outputs a simple specifications list as test cases pass or fail, outputting the failure details at the bottom of the output.</p>
 
-    <p><img src="images/reporter-list.png" alt="list reporter" title="" /></p>
+        <p><img src="images/reporter-list.png" alt="list reporter" title="" /></p>
 
-    <h3 id="progress-reporter">Progress</h3>
+        <h3 id="progress-reporter">Progress</h3>
 
-    <p>The progress reporter implements a simple progress-bar:</p>
+        <p>The progress reporter implements a simple progress-bar:</p>
 
-    <p><img src="images/reporter-progress.png" alt="progress bar" title="" /></p>
+        <p><img src="images/reporter-progress.png" alt="progress bar" title="" /></p>
 
-    <h3 id="json-reporter">JSON</h3>
+        <h3 id="json-reporter">JSON</h3>
 
-    <p>The JSON reporter outputs a single large JSON object when
-    the tests have completed (failures or not).</p>
+        <p>The JSON reporter outputs a single large JSON object when the tests have completed (failures or not).</p>
 
-    <p><img src="images/reporter-json.png" alt="json reporter" title="" /></p>
+        <p><img src="images/reporter-json.png" alt="json reporter" title="" /></p>
 
-    <h3 id="json-stream-reporter">JSON Stream</h3>
+        <h3 id="json-stream-reporter">JSON Stream</h3>
 
     <p>The JSON Stream reporter outputs newline-delimited JSON "events" as they occur, beginning with a "start" event, followed by test passes or failures, and then the final "end" event.</p>
 
@@ -612,7 +600,7 @@ testCase('Array', function() {
 
     <p><img src="images/reporter-html.png" alt="HTML test reporter" title="" /></p>
 
-    <h2 id="browser-support">Browser support</h2>
+    <h2 id="browser-support">浏览器支持</h2>
 
     <p>Mocha runs in the browser. Every release of Mocha will have new builds of <em>./mocha.js</em> and <em>./mocha.css</em> for use in the browser. To setup Mocha for browser use all you have to do is include the script, stylesheet, tell Mocha which interface you wish to use, and then run the tests. A typical setup might look something like the following, where we call <code>mocha.setup('bdd')</code> to use the <strong>BDD</strong> interface before loading the test scripts, running them <code>onload</code> with <code>mocha.run()</code>.</p>
 
@@ -744,12 +732,12 @@ mocha.run();
 
 <pre><code>$ make test REPORTER=list</code></pre>
 
-    <h2 id="more-information">More information</h2>
+    <h2 id="more-information">更多信息</h2>
 
     <p>For additional information such as using spies, mocking, and shared behaviours be sure to check out the <a href="https://github.com/visionmedia/mocha/wiki">Mocha Wiki</a> on GitHub. For discussions join the <a href="http://groups.google.com/group/mochajs">Google Group</a>. For a running example of mocha view <a href="example/tests.html">example/tests.html</a>. For the JavaScript API view the <a href="https://github.com/visionmedia/mocha/blob/master/lib/mocha.js#L51">source</a>.</p>
     </section>
     <footer>
-        <span>© 2011 TJ Holowaychuk. All rights reserved.</span>
+        <span>© 2011 TJ Holowaychuk. All rights reserved. 翻译 <a target="_blank" href="https://poppinlp.github.io/">PoppinL</a></span>
     </footer>
 </body>
 </html>
