@@ -1,3 +1,3 @@
 # LoD
 
-简单的个人页面，随便谢谢。
+Simple homepage.
