@@ -1,4 +1,9 @@
-#关于svn ignore
+---
+layout: post
+title: About svn ignore
+---
+
+# About svn ignore
 
 之前比较多的使用git作为代码仓库工具，不过最近因为一些项目的原因开始使用svn了，首当其冲的就是`co`的不适应 -_-!!
 
