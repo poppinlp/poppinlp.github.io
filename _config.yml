@@ -1,7 +1,6 @@
 title: PoppinL
 email: poppinlp@gmail.com
 description: "2B青年欢乐多"
-
 source: ./
 destination: ./_site
 layouts: ./_layouts
