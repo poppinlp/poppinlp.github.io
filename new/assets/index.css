@@ -1,0 +1,76 @@
+html, body, .left, .content {
+    height:100%;
+}
+.left {
+    float:left;
+    width:50%;
+}
+.content {
+    display:none;
+    float:right;
+    width:50%;
+}
+.left input {
+    position:absolute;
+    left:-100px;
+    top:0
+}
+.nav {
+    position:absolute;
+    height:420px;
+    width:420px;
+    left:50%;
+    top:50%;
+    margin-left:-210px;
+    margin-top:-210px;
+}
+.nav label {
+    position:absolute;
+    height:0;
+    width:0;
+    border-left:solid 100px transparent!important;
+    border-right:solid 100px transparent!important;
+    cursor:pointer;
+    transition:border-color 0.5s ease;
+}
+.nav label:hover {
+    border-color:#000;
+}
+.tt {
+    border-bottom:solid 174px;
+    border-top:0;
+}
+.bt {
+    border-top:solid 174px;
+    border-bottom:0;
+}
+.t1 {
+    border-color:#eee;
+    top:10px;
+    left:0;
+}
+.t2 {
+    border-color:#ccc;
+    top:0;
+    left:110px;
+}
+.t3 {
+    border-color:#aaa;
+    top:10px;
+    left:220px;
+}
+.t4 {
+    border-color:#888;
+    top:194px;
+    left:220px;
+}
+.t5 {
+    border-color:#666;
+    top:204px;
+    left:110px;
+}
+.t6 {
+    border-color:#444;
+    top:194px;
+    left:0;
+}
