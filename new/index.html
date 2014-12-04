@@ -4,24 +4,40 @@
     <meta charset="utf-8" />
     <title>Triangle demo</title>
     <link href="assets/doggy.css" rel="stylesheet" type="text/css" />
-    <link href="assets/triangle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/index.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div class="left">
-        <input type="radio" id="profile" name="nav" />
-        <input type="radio" id="contact" name="nav" />
-        <input type="radio" id="wunderlist" name="nav" />
-        <div class="nav">
-            <label for="profile" class="tt t1"></label>
-            <label for="contact" class="bt t2"></label>
-            <label for="wunderlist" class="tt t3"></label>
-            <label for="" class="bt t4"></label>
-            <label for="" class="tt t5"></label>
-            <label for="" class="bt t6"></label>
+        <ul class="nav">
+            <li class="tt t1" data-color="#eee" data-active="#1abc9c"><a href="javascript:void(0)" data-id="profile"></a></li>
+            <li class="bt t2" data-color="#ccc" data-active="#2ecc71"><a href="javascript:void(0)" data-id="sns"></a></li>
+            <li class="tt t3" data-color="#aaa" data-active="#e74c3c"><a href="javascript:void(0)" data-id="desire"></a></li>
+            <li class="bt t4" data-color="#888" data-active="#3498db"><a href="javascript:void(0)" data-id="desire"></a></li>
+            <li class="tt t5" data-color="#666" data-active="#9b59b6"><a href="javascript:void(0)" data-id="sns"></a></li>
+            <li class="bt t6" data-color="#444" data-active="#e67e22"><a href="javascript:void(0)" data-id="profile"></a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div id="profile">
+            <img src="" height="" width="" alt="" />
+            <p>PoppinL</p>
+        </div>
+        <div id="sns">
+            <ul>
+                <li>Email</li>
+                <li>Github</li>
+                <li>Linkedin</li>
+                <li></li>
+            </ul>
+        </div>
+        <div id="desire">
+            <h2>Desire</h2>
+            <ul>
+                <li></li>
+            </ul>
         </div>
     </div>
-    <ul class="content">
-
-    </ul>
+    <script src="assets/jquery-1.11.1.min.js"></script>
+    <script src="assets/index.js"></script>
 </body>
 </html>

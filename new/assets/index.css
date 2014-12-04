@@ -10,10 +10,9 @@ html, body, .left, .content {
     float:right;
     width:50%;
 }
-.left input {
-    position:absolute;
-    left:-100px;
-    top:0
+.content li {
+    display:none;
+    margin:5%;
 }
 .nav {
     position:absolute;
@@ -24,17 +23,23 @@ html, body, .left, .content {
     margin-left:-210px;
     margin-top:-210px;
 }
-.nav label {
+.nav li {
     position:absolute;
     height:0;
     width:0;
     border-left:solid 100px transparent!important;
     border-right:solid 100px transparent!important;
-    cursor:pointer;
-    transition:border-color 0.5s ease;
 }
-.nav label:hover {
-    border-color:#000;
+.nav a {
+    position:absolute;
+    display:block;
+    height:100px;
+    width:100px;
+    top:74px;
+    left:-50px;
+}
+.nav .bt a {
+    top:-174px;
 }
 .tt {
     border-bottom:solid 174px;
