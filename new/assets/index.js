@@ -7,13 +7,15 @@
     0,1],transparent:[255,255,255,0]}})(jQuery);
 
 $(document).ready(function () {
-    var $nav = $('.nav'),
+    var $left = $('.left'),
+        $nav = $left.children('.nav'),
         $content = $('.content'),
         contentItemId,
         flag = false,
         hoverSpeed = 250,
-        switchSpeed = 400;
+        switchSpeed = 350;
 
+    // nav hover trigger
     $nav.delegate('a', 'mouseenter', function (e) {
         var $target = $(e.target).parent();
         $target.animate({
@@ -26,37 +28,54 @@ $(document).ready(function () {
             borderColor: $target.data('color')
         }, hoverSpeed);
     });
+
+    // nav click trigger
     $nav.delegate('a', 'click', function (e) {
         var selectItemId = $(e.target).data('id');
 
-        if (flag) {
-            $content.fadeOut(switchSpeed, function () {
-                if (selectItemId === contentItemId) {
-                    $nav.animate({
-                        left: '50%'
-                    }, switchSpeed, function () {
-                        flag = false;
-                    });
-                } else {
-                    document.getElementById(contentItemId).style.display = 'none';
-                    contentItemId = selectItemId;
-                    document.getElementById(contentItemId).style.display = 'block';
-                    $content.fadeIn(switchSpeed);
-                }
-            });
-        } else {
-            $nav.animate({
-                left: '25%'
+        if (!flag) {
+            $left.animate({
+                width:'50%'
+            }, switchSpeed);
+            $("#" + selectItemId).css({
+                left: 0,
+                opacity: 1
+            }).show();
+            $content.show().animate({
+                width:'50%'
             }, switchSpeed, function () {
                 flag = true;
             });
-
-            if (contentItemId) {
-                document.getElementById(contentItemId).style.display = 'none';
-            }
-            contentItemId = selectItemId;
-            document.getElementById(contentItemId).style.display = 'block';
-            $content.fadeIn(switchSpeed);
+        } else {
+            contentFadeOut(contentItemId);
+            contentFadeIn(selectItemId);
         }
+        contentItemId = selectItemId;
     });
+
+    function contentFadeIn(id) {
+        var $node = $('#' + id);
+        $node.show().animate({
+            left: 0,
+            opacity: 1
+        }, switchSpeed);
+    }
+
+    function contentFadeOut(id) {
+        var $node = $('#' + id);
+        $node.animate({
+            left: '-50%',
+            top: '50%',
+            height: 0,
+            opacity: 0,
+            width: 0
+        }, switchSpeed, function () {
+            $node.hide().css({
+                left: '100px',
+                top: 0,
+                height: '100%',
+                width: '100%'
+            });
+        });
+    }
 });
