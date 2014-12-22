@@ -4,6 +4,7 @@ html, body, .left {
 body {
     position:relative;
     background:#34495E;
+    overflow:hidden;
 }
 
 
