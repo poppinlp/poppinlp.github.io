@@ -1,7 +1,7 @@
 ## 启动和停止
 
 - redis-server [/path/to/redis.conf] [--port 6380]
-- redis-cli [-h 127.0.0.1] [-p 6379]
+- redis-cli [-h 127.0.0.1] [-p 6379] [-a password]
 - redis-cli shutdown
 - redis-cli ping
 
